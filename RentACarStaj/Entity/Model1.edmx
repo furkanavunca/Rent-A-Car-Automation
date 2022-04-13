@@ -1,0 +1,780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBRentACarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TblAracAlimLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracNo" Type="int" />
+          <Property Name="TeslimEden" Type="int" />
+          <Property Name="TeslimAlan" Type="int" />
+          <Property Name="AlanAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlanSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlanTelefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ehliyet" Type="int" />
+          <Property Name="AlimTarihi" Type="datetime" />
+          <Property Name="TeslimTarihi" Type="datetime" />
+          <Property Name="Durum" Type="int" />
+          <Property Name="KiralamaUcreti" Type="int" />
+        </EntityType>
+        <EntityType Name="TblAraclar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marka" Type="nvarchar" MaxLength="20" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Plaka" Type="nvarchar" MaxLength="10" />
+          <Property Name="SonBakimTarihi" Type="date" />
+          <Property Name="SiradakiBakimTarihi" Type="date" />
+          <Property Name="Durum" Type="int" />
+          <Property Name="Ucret" Type="int" />
+        </EntityType>
+        <EntityType Name="TblCinsiyet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cinsiyet" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="TblDurum">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Durum" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TblEhliyetTipleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EhliyetTipi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblHasarLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracNo" Type="int" />
+          <Property Name="HasarAciklama" Type="nvarchar" MaxLength="500" />
+          <Property Name="Durum" Type="int" />
+        </EntityType>
+        <EntityType Name="TblLogin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yetki" Type="int" />
+        </EntityType>
+        <EntityType Name="TblPersonel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="20" />
+          <Property Name="Cinsiyet" Type="int" />
+          <Property Name="Yetki" Type="int" />
+          <Property Name="Durum" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblYetki">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yetki" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TblAracAlimLog_TblAraclar">
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAraclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="AracNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblAraclar1">
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAraclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="AracNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblDurum">
+          <End Role="TblDurum" Type="Self.TblDurum" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblEhliyetTipleri">
+          <End Role="TblEhliyetTipleri" Type="Self.TblEhliyetTipleri" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblEhliyetTipleri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="Ehliyet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblPersonel">
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="TeslimEden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblPersonel1">
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="TeslimAlan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAraclar_TblDurum">
+          <End Role="TblDurum" Type="Self.TblDurum" Multiplicity="0..1" />
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAraclar">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblHasarLog_TblAraclar">
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="0..1" />
+          <End Role="TblHasarLog" Type="Self.TblHasarLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAraclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblHasarLog">
+              <PropertyRef Name="AracNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblHasarLog_TblDurum">
+          <End Role="TblDurum" Type="Self.TblDurum" Multiplicity="0..1" />
+          <End Role="TblHasarLog" Type="Self.TblHasarLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblHasarLog">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblLogin_TblYetki">
+          <End Role="TblYetki" Type="Self.TblYetki" Multiplicity="0..1" />
+          <End Role="TblLogin" Type="Self.TblLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblYetki">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblLogin">
+              <PropertyRef Name="Yetki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblPersonel_TblCinsiyet">
+          <End Role="TblCinsiyet" Type="Self.TblCinsiyet" Multiplicity="0..1" />
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCinsiyet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblPersonel">
+              <PropertyRef Name="Cinsiyet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblPersonel_TblYetki">
+          <End Role="TblYetki" Type="Self.TblYetki" Multiplicity="0..1" />
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblYetki">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblPersonel">
+              <PropertyRef Name="Yetki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRentACarModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblAracAlimLog" EntityType="Self.TblAracAlimLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblAraclar" EntityType="Self.TblAraclar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblCinsiyet" EntityType="Self.TblCinsiyet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblDurum" EntityType="Self.TblDurum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblEhliyetTipleri" EntityType="Self.TblEhliyetTipleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblHasarLog" EntityType="Self.TblHasarLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblLogin" EntityType="Self.TblLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblPersonel" EntityType="Self.TblPersonel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblYetki" EntityType="Self.TblYetki" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblAracAlimLog_TblAraclar" Association="Self.FK_TblAracAlimLog_TblAraclar">
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblAraclar1" Association="Self.FK_TblAracAlimLog_TblAraclar1">
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblDurum" Association="Self.FK_TblAracAlimLog_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblEhliyetTipleri" Association="Self.FK_TblAracAlimLog_TblEhliyetTipleri">
+            <End Role="TblEhliyetTipleri" EntitySet="TblEhliyetTipleri" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblPersonel" Association="Self.FK_TblAracAlimLog_TblPersonel">
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblPersonel1" Association="Self.FK_TblAracAlimLog_TblPersonel1">
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAraclar_TblDurum" Association="Self.FK_TblAraclar_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblHasarLog_TblAraclar" Association="Self.FK_TblHasarLog_TblAraclar">
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+            <End Role="TblHasarLog" EntitySet="TblHasarLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblHasarLog_TblDurum" Association="Self.FK_TblHasarLog_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblHasarLog" EntitySet="TblHasarLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblLogin_TblYetki" Association="Self.FK_TblLogin_TblYetki">
+            <End Role="TblYetki" EntitySet="TblYetki" />
+            <End Role="TblLogin" EntitySet="TblLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblPersonel_TblCinsiyet" Association="Self.FK_TblPersonel_TblCinsiyet">
+            <End Role="TblCinsiyet" EntitySet="TblCinsiyet" />
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblPersonel_TblYetki" Association="Self.FK_TblPersonel_TblYetki">
+            <End Role="TblYetki" EntitySet="TblYetki" />
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBRentACarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblAracAlimLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracNo" Type="Int32" />
+          <Property Name="TeslimEden" Type="Int32" />
+          <Property Name="TeslimAlan" Type="Int32" />
+          <Property Name="AlanAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlanSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlanTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ehliyet" Type="Int32" />
+          <Property Name="AlimTarihi" Type="DateTime" Precision="3" />
+          <Property Name="TeslimTarihi" Type="DateTime" Precision="3" />
+          <Property Name="Durum" Type="Int32" />
+          <NavigationProperty Name="TblAraclar" Relationship="Self.FK_TblAracAlimLog_TblAraclar" FromRole="TblAracAlimLog" ToRole="TblAraclar" />
+          <NavigationProperty Name="TblEhliyetTipleri" Relationship="Self.FK_TblAracAlimLog_TblEhliyetTipleri" FromRole="TblAracAlimLog" ToRole="TblEhliyetTipleri" />
+          <NavigationProperty Name="TblPersonel" Relationship="Self.FK_TblAracAlimLog_TblPersonel" FromRole="TblAracAlimLog" ToRole="TblPersonel" />
+          <NavigationProperty Name="TblPersonel1" Relationship="Self.FK_TblAracAlimLog_TblPersonel1" FromRole="TblAracAlimLog" ToRole="TblPersonel" />
+          <NavigationProperty Name="TblDurum" Relationship="DBRentACarModel.FK_TblAracAlimLog_TblDurum" FromRole="TblAracAlimLog" ToRole="TblDurum" />
+          <Property Name="KiralamaUcreti" Type="Int32" />
+          <NavigationProperty Name="TblAraclar1" Relationship="DBRentACarModel.FK_TblAraclar_TblAracAlimLog" FromRole="TblAracAlimLog" ToRole="TblAraclar" />
+        </EntityType>
+        <EntityType Name="TblAraclar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marka" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Plaka" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SonBakimTarihi" Type="DateTime" Precision="0" />
+          <Property Name="SiradakiBakimTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Durum" Type="Int32" />
+          <Property Name="Ucret" Type="Int32" />
+          <NavigationProperty Name="TblAracAlimLog" Relationship="Self.FK_TblAracAlimLog_TblAraclar" FromRole="TblAraclar" ToRole="TblAracAlimLog" />
+          <NavigationProperty Name="TblDurum" Relationship="Self.FK_TblAraclar_TblDurum" FromRole="TblAraclar" ToRole="TblDurum" />
+          <NavigationProperty Name="TblAracAlimLog1" Relationship="DBRentACarModel.FK_TblAraclar_TblAracAlimLog" FromRole="TblAraclar" ToRole="TblAracAlimLog" />
+          <NavigationProperty Name="TblHasarLog" Relationship="DBRentACarModel.FK_TblHasarLog_TblAraclar" FromRole="TblAraclar" ToRole="TblHasarLog" />
+        </EntityType>
+        <EntityType Name="TblDurum">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Durum" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="TblAraclar" Relationship="Self.FK_TblAraclar_TblDurum" FromRole="TblDurum" ToRole="TblAraclar" />
+          <NavigationProperty Name="TblAracAlimLog" Relationship="DBRentACarModel.FK_TblAracAlimLog_TblDurum" FromRole="TblDurum" ToRole="TblAracAlimLog" />
+          <NavigationProperty Name="TblHasarLog" Relationship="DBRentACarModel.FK_TblHasarLog_TblDurum" FromRole="TblDurum" ToRole="TblHasarLog" />
+        </EntityType>
+        <EntityType Name="TblEhliyetTipleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EhliyetTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblAracAlimLog" Relationship="Self.FK_TblAracAlimLog_TblEhliyetTipleri" FromRole="TblEhliyetTipleri" ToRole="TblAracAlimLog" />
+        </EntityType>
+        <EntityType Name="TblLogin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Yetki" Type="Int32" />
+          <NavigationProperty Name="TblYetki" Relationship="Self.FK_TblLogin_TblYetki" FromRole="TblLogin" ToRole="TblYetki" />
+        </EntityType>
+        <EntityType Name="TblPersonel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Yetki" Type="Int32" />
+          <Property Name="Durum" Type="Boolean" />
+          <NavigationProperty Name="TblAracAlimLog" Relationship="Self.FK_TblAracAlimLog_TblPersonel" FromRole="TblPersonel" ToRole="TblAracAlimLog" />
+          <NavigationProperty Name="TblAracAlimLog1" Relationship="Self.FK_TblAracAlimLog_TblPersonel1" FromRole="TblPersonel" ToRole="TblAracAlimLog" />
+          <NavigationProperty Name="TblYetki" Relationship="Self.FK_TblPersonel_TblYetki" FromRole="TblPersonel" ToRole="TblYetki" />
+          <Property Name="Cinsiyet" Type="Int32" />
+          <NavigationProperty Name="TblCinsiyet" Relationship="DBRentACarModel.FK_TblPersonel_TblCinsiyet" FromRole="TblPersonel" ToRole="TblCinsiyet" />
+        </EntityType>
+        <EntityType Name="TblYetki">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yetki" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblLogin" Relationship="Self.FK_TblLogin_TblYetki" FromRole="TblYetki" ToRole="TblLogin" />
+          <NavigationProperty Name="TblPersonel" Relationship="Self.FK_TblPersonel_TblYetki" FromRole="TblYetki" ToRole="TblPersonel" />
+        </EntityType>
+        <Association Name="FK_TblAracAlimLog_TblAraclar">
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAraclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="AracNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblEhliyetTipleri">
+          <End Role="TblEhliyetTipleri" Type="Self.TblEhliyetTipleri" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblEhliyetTipleri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="Ehliyet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblPersonel">
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="TeslimEden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAracAlimLog_TblPersonel1">
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblAracAlimLog" Type="Self.TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="TeslimAlan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblAraclar_TblDurum">
+          <End Role="TblDurum" Type="Self.TblDurum" Multiplicity="0..1" />
+          <End Role="TblAraclar" Type="Self.TblAraclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAraclar">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblLogin_TblYetki">
+          <End Role="TblYetki" Type="Self.TblYetki" Multiplicity="0..1" />
+          <End Role="TblLogin" Type="Self.TblLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblYetki">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblLogin">
+              <PropertyRef Name="Yetki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblPersonel_TblYetki">
+          <End Role="TblYetki" Type="Self.TblYetki" Multiplicity="0..1" />
+          <End Role="TblPersonel" Type="Self.TblPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblYetki">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblPersonel">
+              <PropertyRef Name="Yetki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRentACarEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblAracAlimLog" EntityType="Self.TblAracAlimLog" />
+          <EntitySet Name="TblAraclar" EntityType="Self.TblAraclar" />
+          <EntitySet Name="TblDurum" EntityType="Self.TblDurum" />
+          <EntitySet Name="TblEhliyetTipleri" EntityType="Self.TblEhliyetTipleri" />
+          <EntitySet Name="TblLogin" EntityType="Self.TblLogin" />
+          <EntitySet Name="TblPersonel" EntityType="Self.TblPersonel" />
+          <EntitySet Name="TblYetki" EntityType="Self.TblYetki" />
+          <AssociationSet Name="FK_TblAracAlimLog_TblAraclar" Association="Self.FK_TblAracAlimLog_TblAraclar">
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblEhliyetTipleri" Association="Self.FK_TblAracAlimLog_TblEhliyetTipleri">
+            <End Role="TblEhliyetTipleri" EntitySet="TblEhliyetTipleri" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblPersonel" Association="Self.FK_TblAracAlimLog_TblPersonel">
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblPersonel1" Association="Self.FK_TblAracAlimLog_TblPersonel1">
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAraclar_TblDurum" Association="Self.FK_TblAraclar_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblLogin_TblYetki" Association="Self.FK_TblLogin_TblYetki">
+            <End Role="TblYetki" EntitySet="TblYetki" />
+            <End Role="TblLogin" EntitySet="TblLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblPersonel_TblYetki" Association="Self.FK_TblPersonel_TblYetki">
+            <End Role="TblYetki" EntitySet="TblYetki" />
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblAracAlimLog_TblDurum" Association="DBRentACarModel.FK_TblAracAlimLog_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="DBRentACarModel.sysdiagrams" />
+          <AssociationSet Name="FK_TblAraclar_TblAracAlimLog" Association="DBRentACarModel.FK_TblAraclar_TblAracAlimLog">
+            <End Role="TblAracAlimLog" EntitySet="TblAracAlimLog" />
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+          </AssociationSet>
+          <EntitySet Name="TblHasarLog" EntityType="DBRentACarModel.TblHasarLog" />
+          <AssociationSet Name="FK_TblHasarLog_TblAraclar" Association="DBRentACarModel.FK_TblHasarLog_TblAraclar">
+            <End Role="TblAraclar" EntitySet="TblAraclar" />
+            <End Role="TblHasarLog" EntitySet="TblHasarLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblHasarLog_TblDurum" Association="DBRentACarModel.FK_TblHasarLog_TblDurum">
+            <End Role="TblDurum" EntitySet="TblDurum" />
+            <End Role="TblHasarLog" EntitySet="TblHasarLog" />
+          </AssociationSet>
+          <EntitySet Name="TblCinsiyet" EntityType="DBRentACarModel.TblCinsiyet" />
+          <AssociationSet Name="FK_TblPersonel_TblCinsiyet" Association="DBRentACarModel.FK_TblPersonel_TblCinsiyet">
+            <End Role="TblCinsiyet" EntitySet="TblCinsiyet" />
+            <End Role="TblPersonel" EntitySet="TblPersonel" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_TblAracAlimLog_TblDurum">
+          <End Type="DBRentACarModel.TblDurum" Role="TblDurum" Multiplicity="0..1" />
+          <End Type="DBRentACarModel.TblAracAlimLog" Role="TblAracAlimLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAracAlimLog">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_TblAraclar_TblAracAlimLog">
+          <End Type="DBRentACarModel.TblAracAlimLog" Role="TblAracAlimLog" Multiplicity="0..1" />
+          <End Type="DBRentACarModel.TblAraclar" Role="TblAraclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAracAlimLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblAraclar">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TblHasarLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracNo" Type="Int32" />
+          <Property Name="HasarAciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Durum" Type="Int32" />
+          <NavigationProperty Name="TblAraclar" Relationship="DBRentACarModel.FK_TblHasarLog_TblAraclar" FromRole="TblHasarLog" ToRole="TblAraclar" />
+          <NavigationProperty Name="TblDurum" Relationship="DBRentACarModel.FK_TblHasarLog_TblDurum" FromRole="TblHasarLog" ToRole="TblDurum" />
+        </EntityType>
+        <Association Name="FK_TblHasarLog_TblAraclar">
+          <End Type="DBRentACarModel.TblAraclar" Role="TblAraclar" Multiplicity="0..1" />
+          <End Type="DBRentACarModel.TblHasarLog" Role="TblHasarLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblAraclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblHasarLog">
+              <PropertyRef Name="AracNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblHasarLog_TblDurum">
+          <End Type="DBRentACarModel.TblDurum" Role="TblDurum" Multiplicity="0..1" />
+          <End Type="DBRentACarModel.TblHasarLog" Role="TblHasarLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDurum">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblHasarLog">
+              <PropertyRef Name="Durum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TblCinsiyet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblPersonel" Relationship="DBRentACarModel.FK_TblPersonel_TblCinsiyet" FromRole="TblCinsiyet" ToRole="TblPersonel" />
+        </EntityType>
+        <Association Name="FK_TblPersonel_TblCinsiyet">
+          <End Type="DBRentACarModel.TblCinsiyet" Role="TblCinsiyet" Multiplicity="0..1" />
+          <End Type="DBRentACarModel.TblPersonel" Role="TblPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCinsiyet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblPersonel">
+              <PropertyRef Name="Cinsiyet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBRentACarModelStoreContainer" CdmEntityContainer="DBRentACarEntities1">
+          <EntitySetMapping Name="TblAracAlimLog">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblAracAlimLog">
+              <MappingFragment StoreEntitySet="TblAracAlimLog">
+                <ScalarProperty Name="KiralamaUcreti" ColumnName="KiralamaUcreti" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AracNo" ColumnName="AracNo" />
+                <ScalarProperty Name="TeslimEden" ColumnName="TeslimEden" />
+                <ScalarProperty Name="TeslimAlan" ColumnName="TeslimAlan" />
+                <ScalarProperty Name="AlanAd" ColumnName="AlanAd" />
+                <ScalarProperty Name="AlanSoyad" ColumnName="AlanSoyad" />
+                <ScalarProperty Name="AlanTelefon" ColumnName="AlanTelefon" />
+                <ScalarProperty Name="Ehliyet" ColumnName="Ehliyet" />
+                <ScalarProperty Name="AlimTarihi" ColumnName="AlimTarihi" />
+                <ScalarProperty Name="TeslimTarihi" ColumnName="TeslimTarihi" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblAraclar">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblAraclar">
+              <MappingFragment StoreEntitySet="TblAraclar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Plaka" ColumnName="Plaka" />
+                <ScalarProperty Name="SonBakimTarihi" ColumnName="SonBakimTarihi" />
+                <ScalarProperty Name="SiradakiBakimTarihi" ColumnName="SiradakiBakimTarihi" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="Ucret" ColumnName="Ucret" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblDurum">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblDurum">
+              <MappingFragment StoreEntitySet="TblDurum">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblEhliyetTipleri">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblEhliyetTipleri">
+              <MappingFragment StoreEntitySet="TblEhliyetTipleri">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EhliyetTipi" ColumnName="EhliyetTipi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblLogin">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblLogin">
+              <MappingFragment StoreEntitySet="TblLogin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblPersonel">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblPersonel">
+              <MappingFragment StoreEntitySet="TblPersonel">
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblYetki">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblYetki">
+              <MappingFragment StoreEntitySet="TblYetki">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBRentACarModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblHasarLog">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblHasarLog">
+              <MappingFragment StoreEntitySet="TblHasarLog">
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="HasarAciklama" ColumnName="HasarAciklama" />
+                <ScalarProperty Name="AracNo" ColumnName="AracNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblCinsiyet">
+            <EntityTypeMapping TypeName="DBRentACarModel.TblCinsiyet">
+              <MappingFragment StoreEntitySet="TblCinsiyet">
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
